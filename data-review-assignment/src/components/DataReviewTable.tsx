@@ -9,7 +9,7 @@ interface ValidationError {
 }
 
 interface DataReviewRecord {
-    id: number;
+    id: string;
     name: string;
     email: string;
     phone: string;
