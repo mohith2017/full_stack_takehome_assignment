@@ -26,6 +26,79 @@
     - **Error Summary Modal**: Include an "Error Summary" modal with a clickable button or link that opens a modal. This modal should list all the validation errors for that specific row, with details for each error.
 3. **CSV Export**: Allow users to export the data to a CSV format.
 
+# Approach
+
+## Project Setup
+
+- Used Next.js with TypeScript for type safety and better developer experience
+- Implemented Tailwind CSS for styling
+- Set up ESLint for code quality
+
+## Architecture
+
+- Created API route /api/data to serve the mock JSON data
+- Built reusable components for:
+    - Data table with sortable columns
+    - Error tooltips
+    - Error summary modal
+    - CSV export functionality
+
+## Data Flow
+
+- Fetch data from API on component mount
+- Transform nested data into flattened table structure
+- Handle error states and loading states
+- Implement client-side sorting and filtering
+
+## Assumptions
+
+- Data Structure
+    - The JSON data structure will remain consistent with the provided mock data
+    - All records will have the same fields (id, name, email, etc.)
+    - Error objects will always have message and severity properties
+
+- User Experience
+    - Users need to see all data at once (no pagination required for MVP)
+    - Color coding should be consistent:
+        - Red: critical errors
+        - Yellow: warnings
+        - Green: valid fields
+    - Hoverable tooltips are sufficient for quick error checks
+    - Modal is needed for detailed error review
+
+## Future Improvements
+
+- Performance Optimizations
+    - Implement server-side pagination for large datasets
+    - Add client-side caching
+    - Optimize re-renders using React.memo and useMemo
+
+- Enhanced Features
+    - Add column filtering and search functionality
+    - Implement row selection for bulk actions
+    - Add ability to edit data directly in the table
+    - Provide different export formats (Excel, JSON)
+    - Add keyboard navigation support
+
+- UI/UX Enhancements
+    - Add loading skeletons
+    - Implement responsive design for mobile devices
+    - Add dark mode support
+    - Improve accessibility (ARIA labels, keyboard navigation)
+    - Add animations for modal and tooltip interactions
+
+- Testing
+    - Add unit tests for components
+    - Add integration tests for API
+    - Add end-to-end tests for critical user flows
+    - Implement error boundary for better error handling
+
+- Documentation
+    - Add JSDoc comments for components
+    - Create Storybook documentation
+    - Add API documentation
+    - Include setup instructions for local development
+
 
 **Design Considerations**:
 
@@ -103,4 +176,3 @@
 - **Tech Stack**: Use **Next.js** for API and server-side rendering, React for frontend components. Styling can be done with **Tailwind CSS** or your **UI library of choice**.
 - **Time Estimation**: This assignment should take 4–6 hours to complete.
 - **Submission**: Please fork this repo, and provide a GitHub repo link containing your code, with a README explaining your approach, assumptions, and any improvements you would make given more time.
-
