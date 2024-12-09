@@ -7,7 +7,6 @@ import { Button } from "@/src/components/ui/button"
 import { TableIcon } from "lucide-react"
 import { saveAs } from 'file-saver';
 import { Select, SelectTrigger, SelectContent, SelectItem } from "@/src/components/ui/select";
-import FilterAltIcon from "@mui/icons-material/FilterAlt"
 
 type SelectedRow = {
     id: string;
