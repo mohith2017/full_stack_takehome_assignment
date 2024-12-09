@@ -22,7 +22,6 @@ import {
     SelectItem,
     SelectTrigger,
 } from "@/src/components/ui/select"
-import { ChevronDown } from "lucide-react"
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 interface ValidationError {
@@ -46,13 +45,13 @@ interface DataReviewRecord {
 
 interface DataTableProps {
     data: DataReviewRecord[];
-    onRowSelect: (row: { id: string; data: Record<string, any>; validations: Record<string, ValidationError> }) => void;
+    onRowSelect: (row: { id: string; data: Record<string, string>; validations: Record<string, ValidationError> }) => void;
     statusFilter: string;
     onStatusFilterChange: (value: string) => void;
 }
 
 export function DataTable({ data, onRowSelect, statusFilter, onStatusFilterChange }: DataTableProps) {
-    const getCellColor = (value: any, validation: any) => {
+    const getCellColor = (value: string, validation: ValidationError) => {
         if (!validation) return <div className="font-mono text-xs bg-green-50 text-green-700 px-2 py-0.5">{renderCellWithTooltip(value, validation)}</div>;
         if (validation.severity == "critical") {
             return <div className="font-mono text-xs border-2 border-red-500 bg-red-50 text-red-700 rounded-md px-2 py-0.5">{renderCellWithTooltip(value, validation)}</div>;
@@ -168,7 +167,9 @@ export function DataTable({ data, onRowSelect, statusFilter, onStatusFilterChang
                                 variant="outline"
                                 onClick={() => onRowSelect({
                                     id: String(record.id),
-                                    data: record,
+                                    data: Object.fromEntries(
+                                        Object.entries(record).map(([key, value]) => [key, String(value)])
+                                    ),
                                     validations: record.errors
                                 })}
                             >

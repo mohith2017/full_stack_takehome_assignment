@@ -7,7 +7,7 @@ import { Select, SelectTrigger, SelectContent, SelectItem } from "@/src/componen
 
 type SelectedRow = {
     id: string;
-    data: Record<string, any>;
+    data: Record<string, string>;
     validations: Record<string, ValidationError>;
 }
 
