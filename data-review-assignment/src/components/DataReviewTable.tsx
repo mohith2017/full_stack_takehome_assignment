@@ -1,8 +1,15 @@
 // components/DataReview.tsx
 import { useEffect, useState } from "react";
 import { Progress } from "@/src/components/ui/progress"
+import { ErrorSummaryDialog } from "@/src/components/ErrorSummaryDialog"
 import { DataTable } from "@/src/components/DataTable";
 import { Select, SelectTrigger, SelectContent, SelectItem } from "@/src/components/ui/select";
+
+type SelectedRow = {
+    id: string;
+    data: Record<string, any>;
+    validations: Record<string, ValidationError>;
+}
 
 interface ValidationError {
     message: string;
@@ -27,7 +34,9 @@ interface DataReviewRecord {
 export default function DataReviewTable() {
     const [data, setData] = useState<DataReviewRecord[]>([]);
     const [loading, setLoading] = useState(true);
-    const [progress, setProgress] = useState(13);
+    const [selectedRow, setSelectedRow] = useState<SelectedRow>();
+    const [modalOpen, setModalOpen] = useState(false);
+    const [progress, setProgress] = useState(13)
     const [statusFilter, setStatusFilter] = useState<string>("all");
     const [severityFilter, setSeverityFilter] = useState<string>("all");
 
@@ -102,8 +111,17 @@ export default function DataReviewTable() {
                         data={filteredData}
                         statusFilter={statusFilter}
                         onStatusFilterChange={setStatusFilter}
+                        onRowSelect={(row) => {
+                            setSelectedRow(row);
+                            setModalOpen(true);
+                        }}
                     />
 
+                    <ErrorSummaryDialog 
+                        open={modalOpen}
+                        onOpenChange={setModalOpen}
+                        selectedRow={selectedRow || null}
+                    />
                 </>
             )}
         </div>
